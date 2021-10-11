@@ -1,0 +1,7 @@
+flask
+sklearn
+tensorflow
+keras
+torch
+scipy
+spacy
