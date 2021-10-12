@@ -9,3 +9,5 @@ wheel
 pandas
 matplotlib
 seaborn
+nltk
+re
