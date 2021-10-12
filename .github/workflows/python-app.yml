@@ -23,4 +23,7 @@ jobs:
     - name: Install dependencies
       run: |
         pip install -r requirements.txt
+
+    - name: Run APP 
+      run: |
         python mbti.py

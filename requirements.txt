@@ -5,3 +5,5 @@ keras
 torch
 scipy
 spacy
+wheel
+pandas
