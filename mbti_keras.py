@@ -86,3 +86,7 @@ history = model.fit(X_train, y_train, batch_size=32, epochs=20, verbose=1, valid
 score = model.evaluate(X_test, y_test, verbose=1)
 print("Test Score:", score[0])
 print("Test Accuracy:", score[1])
+
+
+log_message_svm = datetime.now() + " : Model Keras Classifier :  " + " Test Score: {}%, Test Accuracy: {}% ".format(int(score[0] * 100),int(score[1] * 100) )
+log_accuracies(log_message_svm)

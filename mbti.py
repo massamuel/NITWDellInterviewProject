@@ -11,6 +11,7 @@ import seaborn as sns
 import scipy
 from sklearn.svm import SVC
 from datetime import datetime
+from log_metrics import log_accuracies
 
 
 df = pd.read_csv("mbti_1.csv")
@@ -44,11 +45,18 @@ X_train, X_test, y_train, y_test = train_test_split(X,y, test_size=.20, stratify
 clf = SGDClassifier()
 clf.fit(X_train,y_train)
 sgd_score = clf.score(X_test,y_test)
-print("SGD score: {}%".format(int(sgd_score*100)))
+accuracy_score = "SGD score: {}%".format(int(sgd_score*100))
+# print("SGD score: {}%".format(int(sgd_score*100)))
+
+log_message = datetime.now() + " : Model SGD Classifier :  " + "SGD score: {}%".format(int(sgd_score*100))
+log_accuracies(log_message)
 
 svm = SVC(kernel = 'linear', C = 1).fit(X_train, y_train)
 svm_score = svm.score(X_test,y_test)
 print("SVM Score: {}%".format(int(svm_score * 100)))
+
+log_message_svm = datetime.now() + " : Model SVC Classifier :  " + "SVM Score: {}%".format(int(svm_score * 100))
+log_accuracies(log_message_svm)
 
 
 #Nural Net
