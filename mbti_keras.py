@@ -1,20 +1,16 @@
 import pandas as pd 
 import keras 
 import re
-import nltk
 from keras.preprocessing.sequence import pad_sequences
 from keras.preprocessing.text import Tokenizer,hashing_trick
 from keras.layers import Embedding, LSTM, Dropout, Dense
 from keras.models import Sequential
-from keras.utils import to_categorical
 from keras.callbacks import ModelCheckpoint, TensorBoard
 from sklearn.feature_extraction.text import TfidfVectorizer
-from keras.callback import EarlyStopping
+from keras.callbacks import EarlyStopping
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
-from nltk.corpus import stopwords
-from nltk.stem.porter import PorterStemmer
 from sklearn.metrics import confusion_matrix
 from sklearn.preprocessing import LabelEncoder
 
@@ -36,7 +32,7 @@ df = pd.read_csv("mbti_1.csv")
 #         data_corpus.append(" ".join(text))
 #     return data_corpus
 
-
+print("preprocessing text")
 documents = []
 # exclude = set(string.punctuation)
 for i in range(len(df)):
@@ -70,6 +66,8 @@ vocab_size = len(tokenizer.word_index) + 1
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=42)
 
+
+print("model trainig")
 callback = EarlyStopping(monitor='loss', patience=3)
 model = keras.models.Sequential([
     keras.layers.Embedding(vocab_size,100,
@@ -81,7 +79,7 @@ model = keras.models.Sequential([
     keras.layers.Dense(1, activation="sigmoid")
 ])
 model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['acc'])
-history = model.fit(X_train, y_train, batch_size=32, epochs=20, verbose=1, validation_split=0.2)
+history = model.fit(X_train, y_train, batch_size=32, epochs=20, verbose=1, validation_split=0.2,callbacks=[callback])
 
 #Storing model score from testing data 
 score = model.evaluate(X_test, y_test, verbose=1)

@@ -12,7 +12,7 @@ from sklearn.preprocessing import LabelEncoder
 
 df = pd.read_csv("mbti_1.csv")
 
-
+print("Preprocessing Text ")
 ## Preprocess Text 
 documents = []
 # exclude = set(string.punctuation)
@@ -44,7 +44,7 @@ x_test = torch.tensor(scipy.sparse.csr_matrix.todense(X_test)).float()
 y_train = torch.tensor(y_train)
 y_test = torch.tensor(y_test)
 
-
+print("Model Training")
 from torch import nn
 model = nn.Sequential(
              nn.Linear(x_train.shape[1], 64),
@@ -61,6 +61,7 @@ loss.backward()
 # Optimizers need parameters to optimize and a learning rate
 optimizer = torch.optim.Adam(model.parameters(), lr=0.002)
 
+print("Training phase")
 epochs = 50
 for e in range(epochs):
     optimizer.zero_grad()
@@ -69,6 +70,7 @@ for e in range(epochs):
     loss.backward()
     optimizer.step()
 
+print("Evaluation")
 with torch.no_grad():
     model.eval()
     log_ps = model(x_test)
