@@ -32,6 +32,6 @@ jobs:
       run: |
         python mbti_pytorch.py
     
-  - name: Run MBTI Keras APP 
+    - name: Run MBTI Keras APP 
       run: |
         python mbti_keras.py  
