@@ -2,6 +2,13 @@ import torch
 import pandas as pd 
 import scipy
 import re
+from sklearn.feature_extraction.text import TfidfVectorizer
+
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import confusion_matrix
+from sklearn.preprocessing import LabelEncoder
 
 df = pd.read_csv("mbti_1.csv")
 
@@ -24,6 +31,13 @@ for i in range(len(df)):
     documents.append(corpus_no_links)
 
 df['proccessed_posts'] = documents
+
+
+vectorizer = TfidfVectorizer()
+encoder = LabelEncoder()
+X = vectorizer.fit_transform(df['proccessed_posts'])
+y = encoder.fit_transform(df['type'])
+X_train, X_test, y_train, y_test = train_test_split(X,y, test_size=.20, stratify=df['type'], random_state=42)
 
 x_train = torch.tensor(scipy.sparse.csr_matrix.todense(X_train)).float()
 x_test = torch.tensor(scipy.sparse.csr_matrix.todense(X_test)).float()
