@@ -7,3 +7,5 @@ scipy
 spacy
 wheel
 pandas
+matplotlib
+seaborn
