@@ -9,6 +9,9 @@ import matplotlib.pyplot as plt
 import numpy as np 
 import seaborn as sns
 import scipy
+from sklearn.svm import SVC
+from datetime import datetime
+
 
 df = pd.read_csv("mbti_1.csv")
 
@@ -40,32 +43,16 @@ X_train, X_test, y_train, y_test = train_test_split(X,y, test_size=.20, stratify
 
 clf = SGDClassifier()
 clf.fit(X_train,y_train)
-score = clf.score(X_test,y_test)
-print(score)
+sgd_score = clf.score(X_test,y_test)
+print("SGD score: {}%".format(int(sgd_score*100)))
+
+svm = SVC(kernel = 'linear', C = 1).fit(X_train, y_train)
+svm_score = svm.score(X_test,y_test)
+print("SVM Score: {}%".format(int(svm_score * 100)))
+
 
 #Nural Net
 import scipy
 
-# x_train = torch.tensor(scipy.sparse.csr_matrix.todense(X_train)).float()
-# x_test = torch.tensor(scipy.sparse.csr_matrix.todense(X_test)).float()
-# y_train = torch.tensor(y_train)
-# y_test = torch.tensor(y_test)
-
-
-# from torch import nn
-# model = nn.Sequential(
-#              nn.Linear(x_train.shape[1], 64),
-#              nn.ReLU(),
-#              nn.Linear(64, df['type'].nunique()),
-#              nn.LogSoftmax(dim=1))
-# # Define the loss
-# criterion = nn.NLLLoss()
-# # Forward pass, log  
-# logps = model(x_train)
-# # Calculate the loss with the logits and the labels
-# loss = criterion(logps, y_train)
-# loss.backward()
-# # Optimizers need parameters to optimize and a learning rate
-# optimizer = torch.optim.Adam(model.parameters(), lr=0.002)
 
 print("Done")

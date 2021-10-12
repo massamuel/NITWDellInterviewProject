@@ -9,6 +9,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix
 from sklearn.preprocessing import LabelEncoder
+from datetime import datetime
 
 df = pd.read_csv("mbti_1.csv")
 
@@ -67,6 +68,7 @@ for e in range(epochs):
     optimizer.zero_grad()
     output = model.forward(x_train)
     loss = criterion(output, y_train)
+    print(loss)
     loss.backward()
     optimizer.step()
 
@@ -79,4 +81,4 @@ with torch.no_grad():
     top_p, top_class = ps.topk(1, dim=1)
     equals = top_class == y_test.view(*top_class.shape)
     test_accuracy = torch.mean(equals.float())
-    print(test_accuracy)
+    print("Pytorch Accuracy: {}%".format(test_accuracy.item()))

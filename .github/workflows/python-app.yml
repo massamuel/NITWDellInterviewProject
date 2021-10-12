@@ -28,9 +28,9 @@ jobs:
       run: |
         python mbti.py
     
-    # - name: Run MBTI pyTorch APP 
-      # run: |
-        # python mbti_pytorch.py
+    - name: Run MBTI pyTorch APP 
+      run: |
+        python mbti_pytorch.py
     
     - name: Run MBTI Keras APP 
       run: |
