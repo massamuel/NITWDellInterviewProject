@@ -48,14 +48,14 @@ sgd_score = clf.score(X_test,y_test)
 accuracy_score = "SGD score: {}%".format(int(sgd_score*100))
 # print("SGD score: {}%".format(int(sgd_score*100)))
 
-log_message = datetime.now() + " : Model SGD Classifier :  " + "SGD score: {}%".format(int(sgd_score*100))
+log_message = str(datetime.now()) + " : Model SGD Classifier :  " + "SGD score: {}%".format(int(sgd_score*100))
 log_accuracies(log_message)
 
 svm = SVC(kernel = 'linear', C = 1).fit(X_train, y_train)
 svm_score = svm.score(X_test,y_test)
 print("SVM Score: {}%".format(int(svm_score * 100)))
 
-log_message_svm = datetime.now() + " : Model SVC Classifier :  " + "SVM Score: {}%".format(int(svm_score * 100))
+log_message_svm = str(datetime.now()) + " : Model SVC Classifier :  " + "SVM Score: {}%".format(int(svm_score * 100))
 log_accuracies(log_message_svm)
 
 

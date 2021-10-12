@@ -14,7 +14,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix
 from sklearn.preprocessing import LabelEncoder
 from datetime import datetime
-
+from log_metrics import log_accuracies
 
 df = pd.read_csv("mbti_1.csv")
 
@@ -88,5 +88,5 @@ print("Test Score:", score[0])
 print("Test Accuracy:", score[1])
 
 
-log_message_svm = datetime.now() + " : Model Keras Classifier :  " + " Test Score: {}%, Test Accuracy: {}% ".format(int(score[0] * 100),int(score[1] * 100) )
-log_accuracies(log_message_svm)
+log_message_keras = str(datetime.now()) + " : Model Keras Classifier :  " + " Test Score: {}%, Test Accuracy: {}% ".format(int(score[0] * 100),int(score[1] * 100) )
+log_accuracies(log_message_keras)
