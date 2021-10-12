@@ -40,7 +40,8 @@ X_train, X_test, y_train, y_test = train_test_split(X,y, test_size=.20, stratify
 
 clf = SGDClassifier()
 clf.fit(X_train,y_train)
-clf.score(X_test,y_test )
+score = clf.score(X_test,y_test)
+print(score)
 
 #Nural Net
 import scipy
