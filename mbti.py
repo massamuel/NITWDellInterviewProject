@@ -1,6 +1,4 @@
 import pandas as pd
-import torch 
-from tensorflow import keras 
 from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import SGDClassifier
@@ -12,11 +10,13 @@ import scipy
 from sklearn.svm import SVC
 from datetime import datetime
 from log_metrics import log_accuracies
-
+from sklearn.model_selection import GridSearchCV
+import numpy as np
+from time import time
 
 df = pd.read_csv("mbti_1.csv")
 
-
+print("preprocess text")
 ## Preprocess Text 
 documents = []
 # exclude = set(string.punctuation)
@@ -34,7 +34,7 @@ for i in range(len(df)):
 
 df['proccessed_posts'] = documents
 
-
+print("training")
 ## Training
 vectorizer = TfidfVectorizer()
 encoder = LabelEncoder()
@@ -43,17 +43,33 @@ y = encoder.fit_transform(df['type'])
 X_train, X_test, y_train, y_test = train_test_split(X,y, test_size=.20, stratify=df['type'], random_state=42)
 
 clf = SGDClassifier()
-clf.fit(X_train,y_train)
-sgd_score = clf.score(X_test,y_test)
-accuracy_score = "SGD score: {}%".format(int(sgd_score*100))
+# clf.fit(X_train,y_train)
+# sgd_score = clf.score(X_test,y_test)
+# accuracy_score = "SGD score: {}%".format(int(sgd_score*100))
 # print("SGD score: {}%".format(int(sgd_score*100)))
 
-log_message = str(datetime.now()) + " : Model SGD Classifier :  " + "SGD score: {}%".format(int(sgd_score*100))
-log_accuracies(log_message)
-print(log_message)
+
+param_grid = {'average': [True, False],
+              'penalty': ['l1','l2']}
+
+grid_search = GridSearchCV(clf,param_grid=param_grid)
+grid_search.fit(X_train,y_train)
+
+print(grid_search.best_params_)
+
+
+# log_message = str(datetime.now()) + " : Model SGD Classifier :  " + "SGD score: {}%".format(int(sgd_score*100))
+# log_accuracies(log_message)
+# print(log_message)
 svm = SVC(kernel = 'linear', C = 1).fit(X_train, y_train)
 svm_score = svm.score(X_test,y_test)
 
+param_grid_svm = {'C': [1,0.5,0.2,0.4,2,1.5 ],
+              'kernel': ['linear']}
+
+grid_search_svm = GridSearchCV(clf,param_grid=param_grid)
+grid_search_svm.fit(X_train,y_train)
+print(grid_search_svm.best_params_)
 # print("SVM Score: {}%".format(int(svm_score * 100)))
 
 log_message_svm = str(datetime.now()) + " : Model SVC Classifier :  " + "SVM Score: {}%".format(int(svm_score * 100))

@@ -1,4 +1,3 @@
-from keras.backend import dropout
 import pandas as pd 
 import keras 
 import re
@@ -16,6 +15,7 @@ from sklearn.metrics import confusion_matrix
 from sklearn.preprocessing import LabelEncoder
 from datetime import datetime
 from log_metrics import log_accuracies
+import numpy as np
 
 df = pd.read_csv("mbti_1.csv")
 
@@ -61,29 +61,25 @@ encoder = LabelEncoder()
 tokenizer.fit_on_texts(X)
 y = encoder.fit_transform(df['type'])
 X = tokenizer.texts_to_sequences(X)
-X = pad_sequences(X, maxlen=100)
+X = pad_sequences(X, maxlen=1000)
 
-n_targets = len(y.unique())
-
+n_targets = len(np.unique(y))
+print(n_targets)
 maxlen = 1000
 vocab_size = len(tokenizer.word_index) + 1
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=42)
 
-
+print(X_train.shape)
 print("model trainig")
 callback = EarlyStopping(monitor='loss', patience=3)
 model = keras.models.Sequential([
-    keras.layers.Embedding(vocab_size,100,
-                           
-                           input_length=100,
-                           trainable = False),
-    keras.layers.LSTM(128,return_sequences=True),
-    keras.layers.Dropout(0.5),
-    keras.layers.Dense(n_targets, activation="sigmoid")
+    keras.layers.Embedding(vocab_size,100,input_length=X.shape[1]),
+    keras.layers.LSTM(128,dropout = 0.2),
+    keras.layers.Dense(16, activation="softmax")
 ])
-model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['acc'])
-history = model.fit(X_train, y_train, batch_size=32, epochs=20, verbose=1, validation_split=0.2,callbacks=[callback])
+model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['acc'])
+history = model.fit(X_train, y_train,batch_size=32, epochs=20, verbose=1, validation_split=0.2,callbacks=[callback])
 
 #Storing model score from testing data 
 score = model.evaluate(X_test, y_test, verbose=1)
@@ -96,17 +92,13 @@ log_accuracies(log_message_keras)
 print(log_message_keras)
 
 model2 = keras.models.Sequential([
-    keras.layers.Embedding(vocab_size,100,
-                           input_length=100,
-                           trainable = False),
-    keras.layers.LSTM(128,return_sequences=True),
-    keras.layers.Dropout(0.5),
-    keras.layers.LSTM(64,return_sequences=True),
-    keras.layers.Dropout(0.4),
-    keras.layers.Dense(n_targets, activation="sigmoid")
+    keras.layers.Embedding(vocab_size,100,input_length=X.shape[1]),
+    keras.layers.LSTM(128,dropout = 0.5),
+    keras.layers.LSTM(64,dropout=0.25),
+    keras.layers.Dense(16, activation="softmax")
 ])
 
-model2.compile(optimizer='adam', loss='binary_crossentropy', metrics=['acc'])
+model2.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['acc'])
 history2 = model2.fit(X_train, y_train, batch_size=32, epochs=20, verbose=1, validation_split=0.2,callbacks=[callback])
 score2 = model.evaluate(X_test, y_test, verbose=1)
 print("Test Score:", score2[0])
