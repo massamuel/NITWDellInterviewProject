@@ -13,6 +13,8 @@ from log_metrics import log_accuracies
 from sklearn.model_selection import GridSearchCV
 import numpy as np
 from time import time
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import cross_val_score
 
 df = pd.read_csv("mbti_1.csv")
 
@@ -43,10 +45,10 @@ y = encoder.fit_transform(df['type'])
 X_train, X_test, y_train, y_test = train_test_split(X,y, test_size=.20, stratify=df['type'], random_state=42)
 
 clf = SGDClassifier()
-# clf.fit(X_train,y_train)
-# sgd_score = clf.score(X_test,y_test)
-# accuracy_score = "SGD score: {}%".format(int(sgd_score*100))
-# print("SGD score: {}%".format(int(sgd_score*100)))
+clf.fit(X_train,y_train)
+sgd_score = clf.score(X_test,y_test)
+accuracy_score = "SGD score: {}%".format(int(sgd_score*100))
+print("SGD score: {}%".format(int(sgd_score*100)))
 
 
 param_grid = {'average': [True, False],
@@ -58,9 +60,9 @@ grid_search.fit(X_train,y_train)
 print(grid_search.best_params_)
 
 
-# log_message = str(datetime.now()) + " : Model SGD Classifier :  " + "SGD score: {}%".format(int(sgd_score*100))
-# log_accuracies(log_message)
-# print(log_message)
+log_message = str(datetime.now()) + " : Model SGD Classifier :  " + "SGD score: {}%".format(int(sgd_score*100))
+log_accuracies(log_message)
+print(log_message)
 svm = SVC(kernel = 'linear', C = 1).fit(X_train, y_train)
 svm_score = svm.score(X_test,y_test)
 
@@ -77,8 +79,21 @@ print(log_message_svm)
 log_accuracies(log_message_svm)
 
 
-#Nural Net
-import scipy
-
+print("Logistic Regression Training with cross fold validation")
+targets = df.type.unique()
+count = 0
+while count < 16:  
+    target_chunk = targets[count:count+2]
+    temp_df = df[(df['type'] == target_chunk[0]) | (df['type'] == target_chunk[1])]
+    vectorizer = TfidfVectorizer()
+    encoder = LabelEncoder()
+    X = vectorizer.fit_transform(temp_df['proccessed_posts'])
+    y = encoder.fit_transform(temp_df['type'])
+    X_train, X_test, y_train, y_test = train_test_split(X,y, test_size=.20, stratify=df['type'], random_state=42)
+    log_reg = LogisticRegression()
+    log_reg.fit(X_train,y_train)
+    score = log_reg.socre(X_test,y_test)
+    print(cross_val_score(log_reg, X_train, y_train, cv=10))
+    count = count + 2
 
 print("Done")
