@@ -99,7 +99,7 @@ model2 = keras.models.Sequential([
     keras.layers.LSTM(128,return_sequences=True),
     keras.layers.Dropout(0.5),
     keras.layers.LSTM(64,return_sequences=True),
-    keras.layers.dropout(0.4),
+    keras.layers.Dropout(0.4),
     keras.layers.Dense(1, activation="sigmoid")
 ])
 
