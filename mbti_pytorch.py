@@ -25,7 +25,7 @@ for i in range(len(df)):
         if(len(sentence) > 0):
             sentence_no_blanks = [i for i in sentence if len(i) > 0]
             corpus.append(sentence_no_blanks)
-    
+        ##Extract sentences or questions with a length longer than average length
     corpus_no_links = ' '.join([' '.join(c) for c in corpus])
     text = re.sub('[^a-zA-Z]',' ',corpus_no_links)
     text = text.lower()
