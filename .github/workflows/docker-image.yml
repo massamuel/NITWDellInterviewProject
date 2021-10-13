@@ -16,6 +16,4 @@ jobs:
     - uses: actions/checkout@v2
     - name: Build the Docker image
       run: docker build -t flask_app_run_logger:latest .
-    - name: Push Docker Image
-      run : docker push flask_app_run_logger:latest
     

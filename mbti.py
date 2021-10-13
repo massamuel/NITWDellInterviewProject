@@ -50,12 +50,14 @@ accuracy_score = "SGD score: {}%".format(int(sgd_score*100))
 
 log_message = str(datetime.now()) + " : Model SGD Classifier :  " + "SGD score: {}%".format(int(sgd_score*100))
 log_accuracies(log_message)
-
+print(log_message)
 svm = SVC(kernel = 'linear', C = 1).fit(X_train, y_train)
 svm_score = svm.score(X_test,y_test)
-print("SVM Score: {}%".format(int(svm_score * 100)))
+
+# print("SVM Score: {}%".format(int(svm_score * 100)))
 
 log_message_svm = str(datetime.now()) + " : Model SVC Classifier :  " + "SVM Score: {}%".format(int(svm_score * 100))
+print(log_message_svm)
 log_accuracies(log_message_svm)
 
 

@@ -63,6 +63,8 @@ y = encoder.fit_transform(df['type'])
 X = tokenizer.texts_to_sequences(X)
 X = pad_sequences(X, maxlen=100)
 
+n_targets = len(y.unique())
+
 maxlen = 1000
 vocab_size = len(tokenizer.word_index) + 1
 
@@ -78,7 +80,7 @@ model = keras.models.Sequential([
                            trainable = False),
     keras.layers.LSTM(128,return_sequences=True),
     keras.layers.Dropout(0.5),
-    keras.layers.Dense(1, activation="sigmoid")
+    keras.layers.Dense(n_targets, activation="sigmoid")
 ])
 model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['acc'])
 history = model.fit(X_train, y_train, batch_size=32, epochs=20, verbose=1, validation_split=0.2,callbacks=[callback])
@@ -91,6 +93,7 @@ print("Test Accuracy:", score[1])
 
 log_message_keras = str(datetime.now()) + " : Model Keras Classifier :  " + " Test Score: {}%, Test Accuracy: {}% ".format(int(score[0] * 100),int(score[1] * 100) )
 log_accuracies(log_message_keras)
+print(log_message_keras)
 
 model2 = keras.models.Sequential([
     keras.layers.Embedding(vocab_size,100,
@@ -100,7 +103,7 @@ model2 = keras.models.Sequential([
     keras.layers.Dropout(0.5),
     keras.layers.LSTM(64,return_sequences=True),
     keras.layers.Dropout(0.4),
-    keras.layers.Dense(1, activation="sigmoid")
+    keras.layers.Dense(n_targets, activation="sigmoid")
 ])
 
 model2.compile(optimizer='adam', loss='binary_crossentropy', metrics=['acc'])
