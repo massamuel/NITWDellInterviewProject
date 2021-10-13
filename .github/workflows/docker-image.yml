@@ -15,4 +15,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
-      run: docker build --tag flask_log_app ./flask_log_app
+      run: docker build ./flask_log_app --tag mtbiTag/flask_log_app:v1
+    - name: Push Image
+      run: docker push mtbiTag/flask_log_app:v1
+      
