@@ -26,7 +26,7 @@ jobs:
 
     - name: Run MBTI Scikit-Learn APP 
       run: |
-        python mbti.py
+        python3 mbti.py
     
     # - name: Run MBTI pyTorch APP 
     #   run: |
@@ -34,4 +34,4 @@ jobs:
     
     - name: Run MBTI Keras APP 
       run: |
-        python mbti_keras.py  
+        python3 mbti_keras.py  
