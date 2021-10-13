@@ -17,5 +17,5 @@ jobs:
     - name: Build the Docker image
       run: docker build -t flask_app_run_logger:latest .
     - name : access Docker Hub
-      run: docker login -u=${{ secrets.DOCKER_HUB_USERNAME }} -p=${{ secrets.DOCKER_HUB_PASSOWRD }}
+      run: docker login --username=${{ secrets.DOCKER_HUB_USERNAME }} --password=${{ secrets.DOCKER_HUB_PASSOWRD }}
     
