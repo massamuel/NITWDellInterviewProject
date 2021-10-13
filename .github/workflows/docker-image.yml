@@ -17,5 +17,5 @@ jobs:
     - name: Build the Docker image
       run: docker build ./flask_log_app --tag mtbitag/flask_log_app:v1
     - name: Push Image
-      run: docker push mtbiTag/flask_log_app:v1
+      run: docker push mtbitag/flask_log_app:v1
       
