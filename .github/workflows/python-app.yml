@@ -37,7 +37,10 @@ jobs:
         git init
         git add log.txt
         git commit -m "adding txt logs from ML algorithms"
-        git config --global user.name = "massamuel"
+        git config --global user.name "massamuel"
+        git config --global user.email "spop234@gmail.com
+–
+"
         git push
 
 
