@@ -58,7 +58,9 @@ grid_search = GridSearchCV(clf,param_grid=param_grid)
 grid_search.fit(X_train,y_train)
 
 print(grid_search.best_params_)
-log_accuracies(str(datetime.now()) + "Best Hyper Parameters to use for SGD Model" + grid_search.best_params_)
+best_hyper_params_sgd = list(grid_search.best_params_.items())
+
+log_accuracies(str(datetime.now()) + "Best Hyper Parameters to use for SGD Model : " + best_hyper_params_sgd)
 
 
 log_message = str(datetime.now()) + " : Model SGD Classifier :  " + "SGD score: {}%".format(int(sgd_score*100))
@@ -74,7 +76,8 @@ grid_search_svm = GridSearchCV(clf,param_grid=param_grid)
 grid_search_svm.fit(X_train,y_train)
 print(grid_search_svm.best_params_)
 # print("SVM Score: {}%".format(int(svm_score * 100)))
-log_accuracies(str(datetime.now()) + "Best Hyper Parameters to use for SVC Model" + grid_search_svm.best_params_)
+best_hyper_params_svm = list(grid_search_svm.best_params_.items())
+log_accuracies(str(datetime.now()) + "Best Hyper Parameters to use for SVC Model : " + best_hyper_params_svm)
 
 
 log_message_svm = str(datetime.now()) + " : Model SVC Classifier :  " + "SVM Score: {}%".format(int(svm_score * 100))
