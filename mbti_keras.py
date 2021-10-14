@@ -90,3 +90,4 @@ print("Test Accuracy:", score[1])
 log_message_keras = str(datetime.now()) + " : Model Keras Classifier :  " + " Test Score: {}%, Test Accuracy: {}% ".format(int(score[0] * 100),int(score[1] * 100) )
 log_accuracies(log_message_keras)
 print(log_message_keras)
+

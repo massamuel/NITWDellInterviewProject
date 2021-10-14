@@ -39,3 +39,6 @@ jobs:
     - name: Run MBTI Keras APP 
       run: |
         python3 mbti_keras.py 
+    - name: Run MBTI Keras Model Binary Classification
+      run : |
+        python3 mbti_keras_preproccessed_text.py

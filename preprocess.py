@@ -31,3 +31,5 @@ for target in df.type.unique():
 new_df = pd.DataFrame(docs)
 
 print("NEW DATAFRAME CREATED WITH {} INSTANCES".format(new_df.shape[0]))
+
+# new_df.to_csv('/Users/sampoplack/Desktop/NITWDell/project_repo/NITWDell/processed_text.csv')
