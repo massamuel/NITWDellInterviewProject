@@ -9,3 +9,4 @@ Log of all model Runs
 2021-10-13 18:14:45.908283 : Model SVC Classifier :  SVM Score: 63%
 2021-10-13 18:16:56.523640 : Model SGD Classifier :  SGD score: 67%
 2021-10-13 18:24:59.213438 : Model SVC Classifier :  SVM Score: 63%
+New Log Test
