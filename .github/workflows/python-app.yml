@@ -28,17 +28,16 @@ jobs:
       run : | 
         python3 preprocess.py
 
-    - name: Run MBTI Scikit-Learn APP 
-      run: |
-        python3 mbti.py
+    # - name: Run MBTI Scikit-Learn APP 
+    #   run: |
+    #     python3 mbti.py
     
     - name: Push Logs to repo
       run: |
-        git init
-        git add log.txt
-        git commit -m "adding txt logs from ML algorithms"
         git config --global user.name "massamuel"
         git config --global user.email "spop234@gmail.com"
+        git add log.txt
+        git commit -m "adding txt logs from ML algorithms"
         git push
 
 
