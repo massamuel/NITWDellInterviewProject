@@ -61,6 +61,6 @@ while count < 16:
     print("Test Score:", score[0])
     print("Test Accuracy:", score[1])
 
-    print("TEST ACCURACY FOR CLASSES {}, {} : {}".format(target_split[0],target_split[1]))
+    print("TEST ACCURACY FOR CLASSES {}, {} : {}".format(target_split[0],target_split[1], score[1]))
 
     count = count + 2

@@ -3,9 +3,10 @@ from pyspark.sql import SQLContext
 from pyspark import SparkContext
 from pyspark.ml.feature import RegexTokenizer, StopWordsRemover, CountVectorizer
 from pyspark.ml.classification import LogisticRegression
+from pyspark.ml import Pipeline
+from pyspark.ml.feature import OneHotEncoder, StringIndexer, VectorAssembler
 
 spark = SparkContext("FilterDataEnv")
-
 
 df = spark.read.csv("mbti_1.csv")
 df_ENTF_ENTJ = df.filter( (df.type == "ENTJ")  & (df.type  == "ENTF")).show(truncate=False)
@@ -18,8 +19,6 @@ stopwordsRemover = StopWordsRemover(inputCol="words", outputCol="filtered").setS
 countVectors = CountVectorizer(inputCol="filtered", outputCol="features", vocabSize=10000, minDF=5)
 
 
-from pyspark.ml import Pipeline
-from pyspark.ml.feature import OneHotEncoder, StringIndexer, VectorAssembler
 label_stringIdx = StringIndexer(inputCol = "Category", outputCol = "label")
 pipeline = Pipeline(stages=[regexTokenizer, stopwordsRemover, countVectors, label_stringIdx])
 # Fit the pipeline to training documents.
