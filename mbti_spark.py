@@ -25,3 +25,19 @@ pipeline = Pipeline(stages=[regexTokenizer, stopwordsRemover, countVectors, labe
 pipelineFit = pipeline.fit(df_ENTF_ENTJ)
 dataset = pipelineFit.transform(df_ENTF_ENTJ)
 dataset.show(5)
+
+(trainingData, testData) = dataset.randomSplit([0.7, 0.3], seed = 100)
+print("Training Dataset Count: " + str(trainingData.count()))
+print("Test Dataset Count: " + str(testData.count()))
+
+lr = LogisticRegression(maxIter=20, regParam=0.3, elasticNetParam=0)
+lrModel = lr.fit(trainingData)
+predictions = lrModel.transform(testData)
+predictions.filter(predictions['prediction'] == 0) \
+    .select("Descript","Category","probability","label","prediction") \
+    .orderBy("probability", ascending=False) \
+    .show(n = 10, truncate = 30)
+
+from pyspark.ml.evaluation import MulticlassClassificationEvaluator
+evaluator = MulticlassClassificationEvaluator(predictionCol="prediction")
+evaluator.evaluate(predictions)

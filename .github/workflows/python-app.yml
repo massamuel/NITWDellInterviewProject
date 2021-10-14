@@ -32,13 +32,22 @@ jobs:
       run: |
         python3 mbti.py
     
-    # - name: Run MBTI pyTorch APP 
-    #   run: |
-    #     python mbti_pytorch.py
-    
-    - name: Run MBTI Keras APP 
+    - name: Push Logs to repo
       run: |
-        python3 mbti_keras.py 
-    - name: Run MBTI Keras Model Binary Classification
-      run : |
-        python3 mbti_keras_preproccessed_text.py
+        git init
+        git add log.txt
+        git commit -m "adding txt logs from ML algorithms"
+        git config --global user.name = "massamuel"
+        git push
+
+
+    
+    # - name: Run MBTI Keras APP 
+    #   run: |
+    #     python3 mbti_keras.py 
+    # - name: Run MBTI Keras Model Binary Classification
+    #   run : |
+    #     python3 mbti_keras_preproccessed_text.py
+
+
+    
