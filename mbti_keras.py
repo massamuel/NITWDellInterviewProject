@@ -79,7 +79,7 @@ model = keras.models.Sequential([
     keras.layers.Dense(16, activation="softmax")
 ])
 model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['acc'])
-history = model.fit(X_train, y_train,batch_size=32, epochs=20, verbose=1, validation_split=0.2,callbacks=[callback])
+history = model.fit(X_train, y_train,batch_size=64, epochs=10, verbose=1, validation_split=0.2,callbacks=[callback])
 
 #Storing model score from testing data 
 score = model.evaluate(X_test, y_test, verbose=1)

@@ -14,6 +14,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix
 from sklearn.preprocessing import LabelEncoder
 import numpy as np
+from log_metrics import log_accuracies
 
 
 df = pd.read_csv('proccessed_text.csv')
@@ -56,7 +57,7 @@ while count < 16:
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=42)
 
     model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['acc'])
-    history = model.fit(X_train, y_train,batch_size=32, epochs=20, verbose=1, validation_split=0.2,callbacks=[callback])
+    history = model.fit(X_train, y_train,batch_size=64, epochs=10, verbose=1, validation_split=0.2,callbacks=[callback])
     score = model.evaluate(X_test, y_test, verbose=1)
     print("Test Score:", score[0])
     print("Test Accuracy:", score[1])

@@ -8,7 +8,7 @@ import numpy as np
 import seaborn as sns
 import scipy
 from sklearn.svm import SVC
-from datetime import datetime
+from datetime import date, datetime
 from log_metrics import log_accuracies
 from sklearn.model_selection import GridSearchCV
 import numpy as np
@@ -58,6 +58,7 @@ grid_search = GridSearchCV(clf,param_grid=param_grid)
 grid_search.fit(X_train,y_train)
 
 print(grid_search.best_params_)
+log_accuracies(str(datetime.now()) + "Best Hyper Parameters to use for SGD Model" + grid_search.best_params_)
 
 
 log_message = str(datetime.now()) + " : Model SGD Classifier :  " + "SGD score: {}%".format(int(sgd_score*100))
@@ -73,6 +74,8 @@ grid_search_svm = GridSearchCV(clf,param_grid=param_grid)
 grid_search_svm.fit(X_train,y_train)
 print(grid_search_svm.best_params_)
 # print("SVM Score: {}%".format(int(svm_score * 100)))
+log_accuracies(str(datetime.now()) + "Best Hyper Parameters to use for SVC Model" + grid_search_svm.best_params_)
+
 
 log_message_svm = str(datetime.now()) + " : Model SVC Classifier :  " + "SVM Score: {}%".format(int(svm_score * 100))
 print(log_message_svm)
@@ -92,6 +95,8 @@ while count < 16:
     log_reg = LogisticRegression()
     scores = cross_val_score(log_reg, new_X, new_y, cv=3)
     print("Cross Validation Score 5 folds For Labels {} and {}: {}".format(target_split[0],target_split[1], scores))
+    log_accuracies(str(datetime.now()) + "Cross Validation Score 5 folds For Labels {} and {}: {}".format(target_split[0],target_split[1], scores))
+    
     count = count + 2
 
 print("Done")

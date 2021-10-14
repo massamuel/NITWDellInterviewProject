@@ -31,6 +31,13 @@ jobs:
     - name: Run MBTI Scikit-Learn APP 
       run: |
         python3 mbti.py
+
+    - name: Run MBTI Keras APP 
+      run: |
+        python3 mbti_keras.py 
+    - name: Run MBTI Keras Model Binary Classification
+      run : |
+        python3 mbti_keras_preproccessed_text.py
     
     - name: Push Logs to repo
       run: |
@@ -43,12 +50,7 @@ jobs:
 
 
     
-    # - name: Run MBTI Keras APP 
-    #   run: |
-    #     python3 mbti_keras.py 
-    # - name: Run MBTI Keras Model Binary Classification
-    #   run : |
-    #     python3 mbti_keras_preproccessed_text.py
+
 
 
     
