@@ -2,58 +2,32 @@ import pandas as pd
 import re
 import numpy as np
 
-from pyspark.sql import SparkSession
-from pyspark.sql import SQLContext
-from pyspark import SparkContext
-
-# print(spark.version)
-
-# df = spark.read.csv("mbti_1.csv")
-# df.printSchema()
 df = pd.read_csv("mbti_1.csv")
 
-# sample = df.posts[0].split('|||')
-# type = df.type[0]
 
-documents_and_labels = []
-
-
-documents = []
-# exclude = set(string.punctuation)
-for i in range(len(df)):
-    first_instance = df.posts[i].split('|||')
-    corpus = []
-    for i in first_instance:
-        sentence = [word for word in i.split(' ') if 'http' not in word]
-        if(len(sentence) > 0):
-            sentence_no_blanks = [i for i in sentence if len(i) > 0]
-            corpus.append(sentence_no_blanks)
-    
-    corpus_no_links = ' '.join([' '.join(c) for c in corpus])
-    documents.append(corpus_no_links)
-
-df['proccessed_posts'] = documents
-
-
+import re
 docs = []
-for i in range(len(df)):
-    split_posts = df.posts[i].split('|||')
-    for s in split_posts:
-        sentence_split = [word for word in s if 'http' not in word]
-        sentence_no_punct = [re.sub('[^a-zA-Z]',' ',text) for text in sentence_split]
-        sentence_all_lower = [s.lower() for s in sentence_no_punct]
+for target in df.type.unique():
+    df_class = df[df['type'] == target]
+    df_class_changed_index = df_class.reset_index(drop=True)
+    print(target)
+    for i in range(len(df_class_changed_index)):
+        split_posts = df_class_changed_index.posts[i].split('|||')
+        corpus = []
+        for s in split_posts:
+            sentence_split = [word for word in s.split(' ') if 'http' not in word]
+            sentence_no_punct = [re.sub('[^a-zA-Z]',' ',text) for text in sentence_split]
+            sentence_all_lower = [s.lower() for s in sentence_no_punct]
+            sentence_no_blanks = [s for s in sentence_all_lower if len(s) > 2]
+            if(len(sentence_no_blanks) != 0):
+                joined_sentence = ' '.join(sentence_no_blanks)
+                corpus.append(joined_sentence)
+        # print(corpus)
+        avg_len = sum([len(c) for c in corpus]) / len(corpus)
+        for c in corpus:
+            if len(c) > avg_len:
+                docs.append({"target": target, "text":c})
 
+new_df = pd.DataFrame(docs)
 
-    # print(text_split)
-    # if(len(sentence) > 0):
-    #     sentence_no_blanks = [i for i in text_split if len(i) > 0]
-    #     docs.append(sentence_no_blanks)
-# avg_doc_length = sum([len(l) for l in docs]) / len(docs)
-
-# docs_final = [' '.join(d).lower() for d in docs if len(d) > avg_doc_length]
-
-# for doc in docs_final:
-#     documents_and_labels.append({type : doc})
-
-
-
+print("NEW DATAFRAME CREATED WITH {} INSTANCES".format(new_df.shape[0]))

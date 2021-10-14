@@ -23,6 +23,10 @@ jobs:
     - name: Install dependencies
       run: |
         pip install -r requirements.txt
+    
+    - name: Preproccessing Data
+      run : | 
+        python3 preprocess.py
 
     - name: Run MBTI Scikit-Learn APP 
       run: |
@@ -34,4 +38,4 @@ jobs:
     
     - name: Run MBTI Keras APP 
       run: |
-        python3 mbti_keras.py  
+        python3 mbti_keras.py 

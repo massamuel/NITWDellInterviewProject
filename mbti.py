@@ -83,17 +83,15 @@ print("Logistic Regression Training with cross fold validation")
 targets = df.type.unique()
 count = 0
 while count < 16:  
-    target_chunk = targets[count:count+2]
-    temp_df = df[(df['type'] == target_chunk[0]) | (df['type'] == target_chunk[1])]
+    target_split = targets[count:count+2]
+    temp_df = df[(df['type'] == target_split[0]) | (df['type'] == target_split[1])]
     vectorizer = TfidfVectorizer()
     encoder = LabelEncoder()
-    X = vectorizer.fit_transform(temp_df['proccessed_posts'])
-    y = encoder.fit_transform(temp_df['type'])
-    X_train, X_test, y_train, y_test = train_test_split(X,y, test_size=.20, stratify=df['type'], random_state=42)
+    new_X = vectorizer.fit_transform(temp_df['proccessed_posts'])
+    new_y = encoder.fit_transform(temp_df['type'])
     log_reg = LogisticRegression()
-    log_reg.fit(X_train,y_train)
-    score = log_reg.socre(X_test,y_test)
-    print(cross_val_score(log_reg, X_train, y_train, cv=10))
+    scores = cross_val_score(log_reg, new_X, new_y, cv=3)
+    print("Cross Validation Score 5 folds For Labels {} and {}: {}".format(target_split[0],target_split[1], scores))
     count = count + 2
 
 print("Done")

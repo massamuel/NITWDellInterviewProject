@@ -90,20 +90,3 @@ print("Test Accuracy:", score[1])
 log_message_keras = str(datetime.now()) + " : Model Keras Classifier :  " + " Test Score: {}%, Test Accuracy: {}% ".format(int(score[0] * 100),int(score[1] * 100) )
 log_accuracies(log_message_keras)
 print(log_message_keras)
-
-model2 = keras.models.Sequential([
-    keras.layers.Embedding(vocab_size,100,input_length=X.shape[1]),
-    keras.layers.LSTM(128,dropout = 0.5),
-    keras.layers.LSTM(64,dropout=0.25),
-    keras.layers.Dense(16, activation="softmax")
-])
-
-model2.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['acc'])
-history2 = model2.fit(X_train, y_train, batch_size=32, epochs=20, verbose=1, validation_split=0.2,callbacks=[callback])
-score2 = model.evaluate(X_test, y_test, verbose=1)
-print("Test Score:", score2[0])
-print("Test Accuracy:", score2[1])
-
-
-log_message_keras_model_2 = str(datetime.now()) + " : Model Keras Classifier 2 :  " + " Test Score: {}%, Test Accuracy: {}% ".format(int(score2[0] * 100),int(score2[1] * 100) )
-log_accuracies(log_message_keras)
