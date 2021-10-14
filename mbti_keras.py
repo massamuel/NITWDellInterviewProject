@@ -82,7 +82,6 @@ model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=
 history = model.fit(X_train, y_train,batch_size=64, epochs=10, verbose=1, validation_split=0.2,callbacks=[callback])
 
 #Storing model score from testing data 
-#Testing Commit 
 score = model.evaluate(X_test, y_test, verbose=1)
 print("Test Score:", score[0])
 print("Test Accuracy:", score[1])
@@ -92,3 +91,4 @@ log_message_keras = str(datetime.now()) + " : Model Keras Classifier :  " + " Te
 log_accuracies(log_message_keras)
 print(log_message_keras)
 
+print("Done")
