@@ -1,3 +1,4 @@
+from pathlib import Path
 import pandas as pd 
 import keras 
 import re
@@ -14,10 +15,9 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix
 from sklearn.preprocessing import LabelEncoder
 import numpy as np
-from log_metrics import log_accuracies
 
 
-df = pd.read_csv('proccessed_text.csv')
+df = pd.read_csv(Path(__file__).resolve().parents[3] / "data/processed/processed_text.csv")
 
 targets = df.target.unique()
 count = 0

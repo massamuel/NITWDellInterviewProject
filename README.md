@@ -1,6 +1,6 @@
 # NITW Dell — interview project, revamped
 
-A Dell interview NLP project turned into a React demo and a containerized Keras inference service. The repository dataset is **MBTI personality classification (16 classes)**, rather than sentiment classification. This is an educational classifier, not a psychological assessment. The historical scripts remain for reference; use `backend/` for the new application.
+A Dell interview NLP project turned into a React demo and a containerized Keras inference service. The repository dataset is **MBTI personality classification (16 classes)**, rather than sentiment classification. This is an educational classifier, not a psychological assessment. The historical scripts remain for reference; use `models/keras/` for model training and `backend/` for the prediction API.
 
 ## Architecture
 
@@ -14,7 +14,7 @@ Requires Python 3.11 or 3.12 and Node 22+. No cloud account required.
 python3.11 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.lock.txt
-python -m backend.train --epochs 15
+python -m models.keras.train --epochs 15
 pytest -q
 uvicorn backend.app:app --port 8000
 # In another terminal:
@@ -87,3 +87,17 @@ Scaling references: [KEDA CPU scaler](https://keda.sh/docs/2.21/scalers/cpu/) an
 ## Future Python cloud infrastructure
 
 `infra/` contains Python starter modules for Azure, AWS and GCP. Provisioning is intentionally unimplemented: there are no cloud credentials, resource definitions or account configurations. See [the starter guide](infra/README.md). This scaffolding is for a later deployment decision; no local VM is required.
+
+## Repository layout
+
+- `models/keras/`: active 16-class Keras training pipeline.
+- `models/preprocessing.py`: shared label definitions and text cleaning for training and serving.
+- `models/legacy/`: original experiments grouped into Keras, PyTorch, scikit-learn and Spark directories.
+- `data/raw/mbti_1.csv`: original MBTI-labeled forum posts (`type`, `posts`).
+- `data/processed/processed_text.csv`: existing processed samples (`target`, `text`); filename spelling corrected.
+- `scripts/preprocess.py`: historical preprocessing experiment. Its optional export targets the processed data directory and is commented out to avoid overwriting the existing dataset.
+- `artifacts/`: generated model and metadata, excluded from Git except for a directory marker.
+- `backend/`: FastAPI serving code; `frontend/`: React interface.
+- `deploy/`: Docker/Kubernetes deployment assets; `infra/`: unimplemented Python cloud starters.
+
+Data paths in the training scripts resolve from their source location. From the repository root, train the active model with `python -m models.keras.train --epochs 15`. Historical experiments can be located under `models/legacy/`; they retain their original algorithms and may require their original framework versions and additional dependencies. They are reference experiments, not part of the active application test suite. Metrics from these experiments print to the console; the file-based log viewer and logging helper have been removed.

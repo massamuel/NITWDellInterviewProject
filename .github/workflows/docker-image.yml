@@ -1,19 +1,15 @@
-name: Docker Image CI
+name: Docker Training Image CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [main, repo-reorg]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v2
-    - name: Build the Docker image
-      run: docker build -t flask_app_run_logger:latest .
-    
+      - uses: actions/checkout@v4
+      - name: Build training image with the organized model and raw dataset
+        run: docker build --target trainer -t nitwdell-trainer:ci .

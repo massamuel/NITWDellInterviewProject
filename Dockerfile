@@ -4,10 +4,11 @@ WORKDIR /app
 COPY requirements.txt requirements.lock.txt ./
 RUN pip install --no-cache-dir -r requirements.lock.txt
 COPY backend ./backend
+COPY models ./models
 
 FROM base AS trainer
-COPY mbti_1.csv .
-ENTRYPOINT ["python", "-m", "backend.train"]
+COPY data/raw/mbti_1.csv ./data/raw/mbti_1.csv
+ENTRYPOINT ["python", "-m", "models.keras.train"]
 
 FROM base AS api
 COPY artifacts/model.keras artifacts/metadata.json ./artifacts/

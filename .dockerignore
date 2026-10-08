@@ -4,5 +4,4 @@ frontend
 __pycache__
 tests
 *.csv
-!mbti_1.csv
-log.txt
+!data/raw/mbti_1.csv

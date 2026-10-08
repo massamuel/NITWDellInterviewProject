@@ -1,3 +1,4 @@
+from pathlib import Path
 import pandas as pd 
 import keras 
 import re
@@ -14,10 +15,9 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix
 from sklearn.preprocessing import LabelEncoder
 from datetime import datetime
-from log_metrics import log_accuracies
 import numpy as np
 
-df = pd.read_csv("mbti_1.csv")
+df = pd.read_csv(str(Path(__file__).resolve().parents[3] / "data/raw/mbti_1.csv"))
 
 
 ## Preprocess Text 
@@ -88,7 +88,6 @@ print("Test Accuracy:", score[1])
 
 
 log_message_keras = str(datetime.now()) + " : Model Keras Classifier :  " + " Test Score: {}%, Test Accuracy: {}% ".format(int(score[0] * 100),int(score[1] * 100) )
-log_accuracies(log_message_keras)
 print(log_message_keras)
 
 print("Done")

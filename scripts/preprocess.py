@@ -1,8 +1,9 @@
+from pathlib import Path
 import pandas as pd 
 import re
 import numpy as np
 
-df = pd.read_csv("mbti_1.csv")
+df = pd.read_csv(Path(__file__).resolve().parents[1] / "data/raw/mbti_1.csv")
 
 
 import re
@@ -33,4 +34,5 @@ new_df = pd.DataFrame(docs)
 print("NEW DATAFRAME CREATED WITH {} INSTANCES".format(new_df.shape[0]))
 print("Data Added to branch")
 
-# new_df.to_csv('/Users/sampoplack/Desktop/NITWDell/project_repo/NITWDell/processed_text.csv')
+# To regenerate the processed dataset, uncomment this export:
+# new_df.to_csv(Path(__file__).resolve().parents[1] / "data/processed/processed_text.csv", index=False)

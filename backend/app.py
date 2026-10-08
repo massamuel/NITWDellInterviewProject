@@ -10,7 +10,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import Response
 from pydantic import BaseModel, Field
 from prometheus_client import Counter, Histogram, generate_latest, CONTENT_TYPE_LATEST
-from backend.text import LABELS, clean_text
+from models.preprocessing import LABELS, clean_text
 
 REQUESTS = Counter("prediction_requests_total", "Prediction requests", ["status"])
 LATENCY = Histogram("prediction_duration_seconds", "Inference duration",

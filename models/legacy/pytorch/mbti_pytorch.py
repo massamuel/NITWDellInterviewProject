@@ -1,3 +1,4 @@
+from pathlib import Path
 import torch
 import pandas as pd 
 import scipy
@@ -11,7 +12,7 @@ from sklearn.metrics import confusion_matrix
 from sklearn.preprocessing import LabelEncoder
 from datetime import datetime
 
-df = pd.read_csv("mbti_1.csv")
+df = pd.read_csv(str(Path(__file__).resolve().parents[3] / "data/raw/mbti_1.csv"))
 
 print("Preprocessing Text ")
 ## Preprocess Text 

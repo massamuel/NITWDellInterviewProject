@@ -1,3 +1,4 @@
+from pathlib import Path
 from pyspark.sql import SparkSession
 from pyspark.sql import SQLContext
 from pyspark import SparkContext
@@ -8,7 +9,7 @@ from pyspark.ml.feature import OneHotEncoder, StringIndexer, VectorAssembler
 
 spark = SparkContext("FilterDataEnv")
 
-df = spark.read.csv("mbti_1.csv")
+df = spark.read.csv(str(Path(__file__).resolve().parents[3] / "data/raw/mbti_1.csv"))
 df_ENTF_ENTJ = df.filter( (df.type == "ENTJ")  & (df.type  == "ENTF")).show(truncate=False)
 
 regexTokenizer = RegexTokenizer(inputCol="Descript", outputCol="words", pattern="\\W")

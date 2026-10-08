@@ -1,56 +1,16 @@
-# This workflow will install Python dependencies, run tests and lint with a single version of Python
-# For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
+name: Historical model experiments
 
-name: Python Devops ML application 
-
+# Kept as an explicit manual workflow; the application checks run in ci.yaml.
 on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+  workflow_dispatch:
 
 jobs:
-  build:
-
+  validate:
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up Python 3.9
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.9
-    - name: Install dependencies
-      run: |
-        pip install -r requirements.txt
-    
-    - name: Preproccessing Data
-      run : | 
-        python3 preprocess.py
-
-    - name: Run MBTI Scikit-Learn APP 
-      run: |
-        python3 mbti.py
-
-    - name: Run MBTI Keras APP 
-      run: |
-        python3 mbti_keras.py 
-    - name: Run MBTI Keras Model Binary Classification
-      run : |
-        python3 mbti_keras_preproccessed_text.py
-    
-    - name: Push Logs to repo
-      run: |
-        git config --global user.name "massamuel"
-        git config --global user.email "spop234@gmail.com"
-        git init
-        git add log.txt
-        git commit -m "adding txt logs from ML algorithms"
-        git push
-
-
-    
-
-
-
-    
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Validate historical scripts without training or writing to the repository
+        run: python -m compileall -q models/legacy scripts/preprocess.py

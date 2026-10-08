@@ -1,3 +1,4 @@
+from pathlib import Path
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -9,14 +10,13 @@ import seaborn as sns
 import scipy
 from sklearn.svm import SVC
 from datetime import date, datetime
-from log_metrics import log_accuracies
 from sklearn.model_selection import GridSearchCV
 import numpy as np
 from time import time
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import cross_val_score
 
-df = pd.read_csv("mbti_1.csv")
+df = pd.read_csv(str(Path(__file__).resolve().parents[3] / "data/raw/mbti_1.csv"))
 
 print("preprocess text")
 ## Preprocess Text 
@@ -60,11 +60,10 @@ grid_search.fit(X_train,y_train)
 print(grid_search.best_params_)
 best_hyper_params_sgd = list(grid_search.best_params_.items())
 
-log_accuracies(str(datetime.now()) + "Best Hyper Parameters to use for SGD Model : " + str(best_hyper_params_sgd))
+print(str(datetime.now()) + "Best Hyper Parameters to use for SGD Model : " + str(best_hyper_params_sgd))
 
 
 log_message = str(datetime.now()) + " : Model SGD Classifier :  " + "SGD score: {}%".format(int(sgd_score*100))
-log_accuracies(log_message)
 print(log_message)
 svm = SVC(kernel = 'linear', C = 1).fit(X_train, y_train)
 svm_score = svm.score(X_test,y_test)
@@ -77,12 +76,11 @@ grid_search_svm.fit(X_train,y_train)
 print(grid_search_svm.best_params_)
 # print("SVM Score: {}%".format(int(svm_score * 100)))
 best_hyper_params_svm = list(grid_search_svm.best_params_.items())
-log_accuracies(str(datetime.now()) + "Best Hyper Parameters to use for SVC Model : " + str(best_hyper_params_svm))
+print(str(datetime.now()) + "Best Hyper Parameters to use for SVC Model : " + str(best_hyper_params_svm))
 
 
 log_message_svm = str(datetime.now()) + " : Model SVC Classifier :  " + "SVM Score: {}%".format(int(svm_score * 100))
 print(log_message_svm)
-log_accuracies(log_message_svm)
 
 
 print("Logistic Regression Training with cross fold validation")
@@ -98,7 +96,7 @@ while count < 16:
     log_reg = LogisticRegression()
     scores = cross_val_score(log_reg, new_X, new_y, cv=3)
     print("Cross Validation Score 5 folds For Labels {} and {}: {}".format(target_split[0],target_split[1], scores))
-    log_accuracies(str(datetime.now()) + "Cross Validation Score 5 folds For Labels {} and {}: {}".format(target_split[0],target_split[1], scores))
+    print(str(datetime.now()) + "Cross Validation Score 5 folds For Labels {} and {}: {}".format(target_split[0],target_split[1], scores))
     
     count = count + 2
 

@@ -9,7 +9,7 @@ import tensorflow as tf
 from sklearn.metrics import classification_report, f1_score, accuracy_score
 from sklearn.model_selection import train_test_split
 from sklearn.utils.class_weight import compute_class_weight
-from backend.text import LABELS, clean_text
+from models.preprocessing import LABELS, clean_text
 
 
 def train(args):
@@ -72,7 +72,7 @@ def train(args):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--data", default="mbti_1.csv")
+    parser.add_argument("--data", default=str(Path(__file__).resolve().parents[2] / "data/raw/mbti_1.csv"))
     parser.add_argument("--output", default="artifacts")
     parser.add_argument("--epochs", type=int, default=15)
     parser.add_argument("--seed", type=int, default=42)

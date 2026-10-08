@@ -1,7 +1,7 @@
 import numpy as np
 from fastapi.testclient import TestClient
 from backend.app import create_app
-from backend.text import LABELS, clean_text
+from models.preprocessing import LABELS, clean_text
 
 class FakePredictor:
     metadata = {"model_version": "test"}
