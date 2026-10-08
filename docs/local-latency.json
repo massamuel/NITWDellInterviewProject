@@ -1,0 +1,7 @@
+{
+  "mode": "sequential in-process TestClient; no network or concurrent load",
+  "samples": 100,
+  "request_p50_ms": 15.976050999597646,
+  "request_p95_ms": 26.469718295265917,
+  "inference_p95_ms": 17.433951805287506
+}

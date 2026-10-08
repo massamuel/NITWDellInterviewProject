@@ -1,0 +1,10 @@
+{
+ "$schema": "https://json-schema.org/draft-07/schema#", "type": "object",
+ "properties": {"scaling": {"type": "object", "properties": {
+   "minReplicas": {"type": "integer", "minimum": 1},
+   "maxReplicas": {"type": "integer", "minimum": 1},
+   "schedule": {"type": "object", "properties": {
+     "replicas": {"type": "string", "pattern": "^[1-9][0-9]*$"}
+   }}
+ }}}
+}

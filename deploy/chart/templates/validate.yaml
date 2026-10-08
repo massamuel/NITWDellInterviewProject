@@ -1,0 +1,6 @@
+{{- if gt (int .Values.scaling.minReplicas) (int .Values.scaling.maxReplicas) }}
+{{- fail "scaling.minReplicas must not exceed scaling.maxReplicas" }}
+{{- end }}
+{{- if and .Values.scaling.schedule.enabled (gt (int .Values.scaling.schedule.replicas) (int .Values.scaling.maxReplicas)) }}
+{{- fail "scheduled replicas must not exceed scaling.maxReplicas" }}
+{{- end }}

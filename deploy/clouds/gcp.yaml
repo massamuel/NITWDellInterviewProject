@@ -1,0 +1,7 @@
+# Existing GKE cluster; nodes need Artifact Registry Reader permission.
+api:
+  image: YOUR_REGION-docker.pkg.dev/YOUR_PROJECT/YOUR_REPOSITORY/nitwdell-api:YOUR_TAG
+web:
+  image: YOUR_REGION-docker.pkg.dev/YOUR_PROJECT/YOUR_REPOSITORY/nitwdell-web:YOUR_TAG
+service:
+  type: LoadBalancer

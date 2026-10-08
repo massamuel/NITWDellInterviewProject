@@ -1,0 +1,8 @@
+.git
+.venv
+frontend
+__pycache__
+tests
+*.csv
+!mbti_1.csv
+log.txt

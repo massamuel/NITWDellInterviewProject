@@ -1,0 +1,6 @@
+apiVersion: v2
+name: nitwdell
+version: 0.1.0
+appVersion: "1.0.0"
+description: Keras text prediction service with React UI and KEDA autoscaling
+type: application

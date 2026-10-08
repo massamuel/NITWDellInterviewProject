@@ -1,0 +1,7 @@
+# Existing EKS cluster; node role must pull images from ECR.
+api:
+  image: YOUR_ACCOUNT.dkr.ecr.YOUR_REGION.amazonaws.com/nitwdell-api:YOUR_TAG
+web:
+  image: YOUR_ACCOUNT.dkr.ecr.YOUR_REGION.amazonaws.com/nitwdell-web:YOUR_TAG
+service:
+  type: LoadBalancer
