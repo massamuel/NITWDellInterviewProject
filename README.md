@@ -83,3 +83,7 @@ Training stopped after 12 epochs and restored the best validation-loss weights. 
 For a sequential in-process latency sanity check run `python -m scripts.benchmark_local`. This excludes network, ingress and concurrent demand; results are saved to `docs/local-latency.json`. The separate k6 scenario is the deployment capacity test.
 
 Scaling references: [KEDA CPU scaler](https://keda.sh/docs/2.21/scalers/cpu/) and [KEDA scheduled scaling](https://keda.sh/docs/2.21/scalers/cron/). Model export follows [Keras model serialization](https://keras.io/guides/serialization_and_saving/).
+
+## Future Python cloud infrastructure
+
+`infra/` contains Python starter modules for Azure, AWS and GCP. Provisioning is intentionally unimplemented: there are no cloud credentials, resource definitions or account configurations. See [the starter guide](infra/README.md). This scaffolding is for a later deployment decision; no local VM is required.
