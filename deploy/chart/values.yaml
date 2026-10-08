@@ -1,0 +1,26 @@
+api:
+  image: nitwdell-api:local
+  resources:
+    requests: {cpu: "500m", memory: "1Gi"}
+    limits: {cpu: "2", memory: "2Gi"}
+web:
+  image: nitwdell-web:local
+  replicas: 2
+imagePullSecrets: []
+service:
+  type: ClusterIP
+scaling:
+  minReplicas: 2
+  maxReplicas: 20
+  cpuUtilization: "60"
+  schedule:
+    enabled: true
+    timezone: America/Los_Angeles
+    start: "0 9 * * 1-5"
+    end: "0 18 * * 1-5"
+    replicas: "6"
+ingress:
+  enabled: false
+  className: nginx
+  host: text.example.com
+  tlsSecret: ""

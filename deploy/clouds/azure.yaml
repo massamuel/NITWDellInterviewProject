@@ -1,0 +1,7 @@
+# Existing AKS cluster; grant its kubelet identity AcrPull on this registry.
+api:
+  image: YOUR_REGISTRY.azurecr.io/nitwdell-api:YOUR_TAG
+web:
+  image: YOUR_REGISTRY.azurecr.io/nitwdell-web:YOUR_TAG
+service:
+  type: LoadBalancer

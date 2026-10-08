@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web
+spec:
+  replicas: {{ .Values.web.replicas }}
+  selector:
+    matchLabels: {app: web}
+  template:
+    metadata:
+      labels: {app: web}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 101
+        fsGroup: 101
+      containers:
+        - name: web
+          image: {{ .Values.web.image | quote }}
+          ports: [{containerPort: 8080}]
+          resources:
+            requests: {cpu: "100m", memory: "64Mi"}
+            limits: {cpu: "500m", memory: "128Mi"}
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities: {drop: [ALL]}
+          readinessProbe:
+            httpGet: {path: /, port: 8080}
+          livenessProbe:
+            httpGet: {path: /, port: 8080}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: web
+spec:
+  type: {{ .Values.service.type }}
+  selector: {app: web}
+  ports: [{port: 80, targetPort: 8080}]

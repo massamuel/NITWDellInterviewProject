@@ -1,0 +1,143 @@
+{
+  "labels": [
+    "ENFJ",
+    "ENFP",
+    "ENTJ",
+    "ENTP",
+    "ESFJ",
+    "ESFP",
+    "ESTJ",
+    "ESTP",
+    "INFJ",
+    "INFP",
+    "INTJ",
+    "INTP",
+    "ISFJ",
+    "ISFP",
+    "ISTJ",
+    "ISTP"
+  ],
+  "seed": 42,
+  "dataset_sha256": "8b068e734efaed7a7905a1434b1f76eab2fc2f8c943247b5af78103e96940bdb",
+  "model_version": "2ade44536174",
+  "split_rows": {
+    "train": 5552,
+    "validation": 1388,
+    "test": 1735
+  },
+  "epochs_run": 12,
+  "accuracy": 0.35331412103746396,
+  "macro_f1": 0.21445305961027983,
+  "majority_baseline_accuracy": 0.21095100864553315,
+  "classification_report": {
+    "ENFJ": {
+      "precision": 0.42857142857142855,
+      "recall": 0.15789473684210525,
+      "f1-score": 0.23076923076923078,
+      "support": 38.0
+    },
+    "ENFP": {
+      "precision": 0.45161290322580644,
+      "recall": 0.2074074074074074,
+      "f1-score": 0.28426395939086296,
+      "support": 135.0
+    },
+    "ENTJ": {
+      "precision": 0.25806451612903225,
+      "recall": 0.17391304347826086,
+      "f1-score": 0.2077922077922078,
+      "support": 46.0
+    },
+    "ENTP": {
+      "precision": 0.39215686274509803,
+      "recall": 0.145985401459854,
+      "f1-score": 0.2127659574468085,
+      "support": 137.0
+    },
+    "ESFJ": {
+      "precision": 0.07142857142857142,
+      "recall": 0.2222222222222222,
+      "f1-score": 0.10810810810810811,
+      "support": 9.0
+    },
+    "ESFP": {
+      "precision": 0.05263157894736842,
+      "recall": 0.1,
+      "f1-score": 0.06896551724137931,
+      "support": 10.0
+    },
+    "ESTJ": {
+      "precision": 0.06666666666666667,
+      "recall": 0.25,
+      "f1-score": 0.10526315789473684,
+      "support": 8.0
+    },
+    "ESTP": {
+      "precision": 0.1111111111111111,
+      "recall": 0.05555555555555555,
+      "f1-score": 0.07407407407407407,
+      "support": 18.0
+    },
+    "INFJ": {
+      "precision": 0.3664383561643836,
+      "recall": 0.36394557823129253,
+      "f1-score": 0.3651877133105802,
+      "support": 294.0
+    },
+    "INFP": {
+      "precision": 0.4358353510895884,
+      "recall": 0.4918032786885246,
+      "f1-score": 0.4621309370988447,
+      "support": 366.0
+    },
+    "INTJ": {
+      "precision": 0.34972677595628415,
+      "recall": 0.29357798165137616,
+      "f1-score": 0.3192019950124688,
+      "support": 218.0
+    },
+    "INTP": {
+      "precision": 0.3314285714285714,
+      "recall": 0.6666666666666666,
+      "f1-score": 0.44274809160305345,
+      "support": 261.0
+    },
+    "ISFJ": {
+      "precision": 0.2777777777777778,
+      "recall": 0.15151515151515152,
+      "f1-score": 0.19607843137254902,
+      "support": 33.0
+    },
+    "ISFP": {
+      "precision": 0.1,
+      "recall": 0.018518518518518517,
+      "f1-score": 0.03125,
+      "support": 54.0
+    },
+    "ISTJ": {
+      "precision": 0.23076923076923078,
+      "recall": 0.07317073170731707,
+      "f1-score": 0.1111111111111111,
+      "support": 41.0
+    },
+    "ISTP": {
+      "precision": 0.2972972972972973,
+      "recall": 0.16417910447761194,
+      "f1-score": 0.21153846153846154,
+      "support": 67.0
+    },
+    "accuracy": 0.35331412103746396,
+    "macro avg": {
+      "precision": 0.2638448124567635,
+      "recall": 0.2210222111513665,
+      "f1-score": 0.21445305961027983,
+      "support": 1735.0
+    },
+    "weighted avg": {
+      "precision": 0.357631961950689,
+      "recall": 0.35331412103746396,
+      "f1-score": 0.33327114004844904,
+      "support": 1735.0
+    }
+  }
+}
